@@ -1092,57 +1092,90 @@ body {
 }
 
 .section-closing {
+    position: relative;
     background: var(--off-white);
-    padding: 40px 20px;
-    min-height: auto;
+    padding: 80px 20px;
+    min-height: 100vh;
+    display: flex;
     justify-content: center;
     align-items: center;
+    overflow: hidden;
+}
+
+.closing-flower-top {
+    position: absolute;
+    top: -40px;
+    right: -40px;
+    width: 180px;
+    z-index: 1;
+    opacity: 0.9;
+}
+
+.closing-flower-bottom {
+    position: absolute;
+    bottom: -40px;
+    left: -40px;
+    width: 180px;
+    z-index: 1;
+    opacity: 0.9;
+    transform: rotate(180deg);
 }
 
 .closing-content {
     text-align: center;
+    max-width: 500px;
+    position: relative;
+    z-index: 2;
 }
 
 .closing-photo-wrapper {
     display: flex;
     justify-content: center;
-    margin-bottom: 25px;
+    margin-bottom: 30px;
 }
 
 .closing-photo {
-    width: 140px;
-    height: 190px;
+    width: 200px;
+    height: 250px;
     border-radius: 100px;
     object-fit: cover;
-    border: 4px solid var(--primary);
-    box-shadow: 0 5px 15px rgba(0, 0, 0, 0.2);
+    border: 3px solid rgba(112, 0, 0, 0.3);
+    padding: 10px;
+    box-shadow: 0 10px 30px rgba(0, 0, 0, 0.1);
 }
 
 .closing-title {
     font-family: 'Great Vibes', cursive;
-    font-size: 42px;
+    font-size: 52px;
     color: var(--primary);
-    margin-bottom: 15px;
+    margin-bottom: 25px;
 }
 
 .closing-text {
-    font-size: 14px;
+    font-size: 15px;
     color: var(--black);
-    margin-bottom: 20px;
+    margin-bottom: 30px;
     line-height: 1.8;
+    padding: 0 20px;
 }
 
 .closing-salam {
-    font-family: 'Cormorant Garamond', serif;
-    font-size: 16px;
+    font-family: 'Playfair Display', serif;
+    font-size: 18px;
+    font-weight: 700;
     color: var(--primary);
+    margin-bottom: 40px;
+}
+
+.closing-thank-you {
+    font-size: 14px;
+    color: var(--black);
     margin-bottom: 10px;
 }
 
 .closing-names {
-    font-family: 'Cormorant Garamond', serif;
-    font-size: 28px;
-    font-weight: 700;
+    font-family: 'Great Vibes', cursive;
+    font-size: 48px;
     color: var(--primary);
 }
 
