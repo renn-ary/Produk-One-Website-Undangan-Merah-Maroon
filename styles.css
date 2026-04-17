@@ -599,6 +599,7 @@ body {
 }
 
 .event-pill {
+    position: relative;
     background: #700000;
     border-radius: 200px;
     padding: 100px 30px 140px; /* Increased height by 10% */
@@ -610,6 +611,22 @@ body {
     align-items: center;
     box-shadow: 0 10px 30px rgba(0, 0, 0, 0.2);
     color: white;
+}
+
+.event-flower-decor {
+    position: absolute;
+    top: -20px;
+    left: 20px;
+    width: 190px; /* Sesuaikan ukuran bunga */
+    z-index: 10;
+    transform-origin: center;
+    animation: flowerBeat 2s ease-in-out infinite;
+    pointer-events: none;
+}
+
+@keyframes flowerBeat {
+    0%, 100% { transform: rotate(-50deg) scale(1); }
+    50% { transform: rotate(-50deg) scale(1.1); }
 }
 
 .event-item {
