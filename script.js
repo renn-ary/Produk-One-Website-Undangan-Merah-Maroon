@@ -26,6 +26,48 @@ document.addEventListener('DOMContentLoaded', function() {
     const bgMusic = document.getElementById('bgMusic');
     const guestNameEl = document.getElementById('guestName');
     const floatingNav = document.querySelector('.floating-nav');
+    const musicToggle = document.getElementById('musicToggle');
+    const musicIcon = musicToggle.querySelector('.material-symbols-rounded');
+
+    // Music Control Logic
+    let isMusicPlaying = false;
+    let scrollTimeout;
+
+    // Load music preference
+    const savedMusicStatus = localStorage.getItem('musicStatus');
+    if (savedMusicStatus === 'paused') {
+        isMusicPlaying = false;
+        musicIcon.textContent = 'volume_off';
+    } else {
+        isMusicPlaying = true;
+        musicIcon.textContent = 'volume_up';
+    }
+
+    musicToggle.addEventListener('click', function() {
+        if (bgMusic.paused) {
+            bgMusic.play().catch(e => console.log('Playback failed'));
+            musicIcon.textContent = 'volume_up';
+            localStorage.setItem('musicStatus', 'playing');
+            isMusicPlaying = true;
+        } else {
+            bgMusic.pause();
+            musicIcon.textContent = 'volume_off';
+            localStorage.setItem('musicStatus', 'paused');
+            isMusicPlaying = false;
+        }
+    });
+
+    // Auto-hide music button on scroll
+    window.addEventListener('scroll', function() {
+        if (!musicToggle.classList.contains('hidden')) {
+            musicToggle.classList.add('scrolling');
+            
+            clearTimeout(scrollTimeout);
+            scrollTimeout = setTimeout(() => {
+                musicToggle.classList.remove('scrolling');
+            }, 1000); // Muncul kembali setelah 1 detik berhenti scroll
+        }
+    });
 
     const urlParams = new URLSearchParams(window.location.search);
     const guestName = urlParams.get('to');
@@ -35,7 +77,10 @@ document.addEventListener('DOMContentLoaded', function() {
 
     // 2. Fade Transition for Buka Undangan
     openBtn.addEventListener('click', function() {
-        bgMusic.play().catch(e => console.log('Audio autoplay blocked'));
+        const savedStatus = localStorage.getItem('musicStatus');
+        if (savedStatus !== 'paused') {
+            bgMusic.play().catch(e => console.log('Audio autoplay blocked'));
+        }
         
         cover.style.transition = 'opacity 1s ease, transform 1s ease';
         cover.style.opacity = '0';
@@ -46,6 +91,7 @@ document.addEventListener('DOMContentLoaded', function() {
             cover.classList.add('hidden');
             mainContent.classList.remove('hidden');
             floatingNav.classList.remove('hidden');
+            musicToggle.classList.remove('hidden'); // Show music button
             
             // Initialize scroll animations before showing elements
             initScrollAnimations();
@@ -74,7 +120,9 @@ document.addEventListener('DOMContentLoaded', function() {
             bgMusic.pause();
         } else {
             // Only resume if cover is already hidden (meaning user has opened invitation)
-            if (cover.classList.contains('hidden')) {
+            // and music was not manually paused
+            const savedStatus = localStorage.getItem('musicStatus');
+            if (cover.classList.contains('hidden') && savedStatus !== 'paused') {
                 bgMusic.play().catch(e => console.log('Playback failed'));
             }
         }
