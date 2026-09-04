@@ -283,7 +283,7 @@ document.addEventListener('DOMContentLoaded', function() {
     document.querySelectorAll('.event-day-counter').forEach(el => counterObserver.observe(el));
 
     // 8. Countdown Timer
-    const weddingDate = new Date('2026-04-06T10:00:00').getTime();
+    const weddingDate = new Date('2026-09-20T10:00:00').getTime();
     function updateCountdown() {
         const now = new Date().getTime();
         const distance = weddingDate - now;
